@@ -14,8 +14,11 @@ from PyImporter import (
 # Setup class to inherit from PyImporter BaseModel
 class Demo(BaseModel):
     def __init__(self):
+        # table is required
         self.table = "ca_objects"
+        #
         self.type = "archeology"
+        # if you only import one file per script, set self.file and self.file_path
         self.file = "demo.csv"
         self.file_path = format_data_file_path(self.file)
 
@@ -143,7 +146,8 @@ class Demo(BaseModel):
                 "target_column": ["Continent", "Country"],
                 "relationship": "located",
                 "idno_format": "slug",
-                # do nothing if no search result
+                # do not include not_found_action, if you want the script to
+                # only log errors if no search result
             },
         ]
 

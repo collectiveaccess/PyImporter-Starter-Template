@@ -5,10 +5,12 @@ base_path = Path(__file__).resolve().parent
 
 
 def lint():
-    _exec(f"black {Path(base_path, 'scripts')}")
-    _exec(f"black {Path(base_path, 'tests')}")
-    _exec(f"flake8 {Path(base_path, 'scripts')}")
-    _exec(f"flake8 {Path(base_path, 'tests')}")
+    _exec(f"black {Path(base_path, 'pyimporter_create.py')}")
+    _exec(f"black {Path(base_path, 'template_files', 'scripts')}")
+    _exec(f"black {Path(base_path, 'template_files', 'tests')}")
+    _exec(f"flake8 {Path(base_path, 'pyimporter_create.py')}")
+    _exec(f"flake8 {Path(base_path, 'template_files','scripts')}")
+    _exec(f"flake8 {Path(base_path, 'template_files','tests')}")
 
 
 def _exec(command):

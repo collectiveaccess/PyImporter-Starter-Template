@@ -12,12 +12,13 @@ class Demo(BaseModel):
     def __init__(self):
         self.table = "ca_table"
         self.type = "ca_type"
+        # if you only import one file per script, set self.file and self.file_path
         self.file = "demo.csv"
         self.file_path = format_data_file_path(self.file)
 
     def validation(self):
-        # df = pd.read_csv(self.file_path, dtype=str)
-        pass
+        df = pd.read_csv(self.file_path, dtype=str)
+        print(df)
 
     def custom_clean_up_dataframe(self, df, metadata):
         return df
@@ -30,7 +31,7 @@ class Demo(BaseModel):
                 "file_type": "csv",
                 "table": self.table,
                 "type": self.type,
-                "bundles": [{"Collective_Access_field": "file_column_name"}],
+                "bundles": [{"CollectiveAccess_field": "file_column_name"}],
                 "related_fields": self.related_fields(),
                 "relationships": self.relationships(),
             },
