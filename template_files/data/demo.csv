@@ -1,0 +1,4 @@
+Object ID,Object Name,Other Object Number,Related Objects,Dimensions: Length,Dimensions: Weight,Collector,Continent,Country,Status By
+1,Jar,a1; b1,10; 9,10,1 kg,"Doe, Jane",Asia,China,"Smith, Jenn"
+2,Basket,c2,,,,,North America,Canada,"Smith, Bob"
+3,Clothing,,8,5 cm,.5 kg,Acme Inc.,South America,Chile,
