@@ -45,7 +45,7 @@ while not valid_directory:
     input_path = input()
     project_path = current_path / input_path
 
-    if input_path.strip() == '':
+    if input_path.strip() == "":
         continue
     elif project_path.exists():
         print(f"'{input_path}' already exists. Do you want to replace it? [y/n]")

@@ -1,5 +1,4 @@
 import fire
-import pandas as pd
 
 import config  # noqa: F401
 from PyImporter import (
@@ -16,9 +15,8 @@ class Demo(BaseModel):
         self.file = "demo.csv"
         self.file_path = format_data_file_path(self.file)
 
-    def validation(self):
-        df = pd.read_csv(self.file_path, dtype=str)
-        print(df)
+    def validation(self, df, metadata):
+        pass
 
     def custom_clean_up_dataframe(self, df, metadata):
         return df
@@ -62,11 +60,13 @@ if __name__ == "__main__":
     obj = Demo()
     fire.Fire(
         {
-            "validation": obj.validation,
+            "validation": obj.validation_from_metadata,
             "create_records": obj.create_records_from_metadata,
             "preview_create": obj.preview_create_query_from_metadata,
             "truncate_table": obj.truncate_table,
             "delete_records": obj.delete_records,
             "delete_relationships": obj.delete_relationships_from_metadata,
+            "preview_update": obj.preview_update_query_from_metadata,
+            "update_records": obj.update_records_from_metadata,
         }
     )
