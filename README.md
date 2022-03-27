@@ -41,7 +41,7 @@ We are using [python-dotenv](https://github.com/theskumar/python-dotenv) to hand
 
 Read [PyImporter environmental variables](https://github.com/collectiveaccess/PyImporter/wiki/Installing-PyImporter#pyimporter-environmental-variables) for more info the required envars.
 
-3. Read the [PyImporter docs](https://github.com/collectiveaccess/PyImporter/wiki) for  instructions on how to use PyImporter. Examine the demo import script ([./script/demo.py](https://github.com/collectiveaccess/PyImporter-Starter-Template/blob/main/template_files/scripts/demo.py)) and data ([./data/demo.csv](https://github.com/collectiveaccess/PyImporter-Starter-Template/blob/main/template_files/data/demo.csv)) to see an example of how to use PyImporter.
+3. Read the [PyImporter docs](https://github.com/collectiveaccess/PyImporter/wiki) for  instructions on how to use PyImporter. Examine the demo import script ([./scripts/demo.py](https://github.com/collectiveaccess/PyImporter-Starter-Template/blob/main/template_files/scripts/demo.py)) and data ([./data/demo.csv](https://github.com/collectiveaccess/PyImporter-Starter-Template/blob/main/template_files/data/demo.csv)) to see an example of how to use PyImporter.
 
 4. Copy [./scripts/template.py](https://github.com/collectiveaccess/PyImporter-Starter-Template/blob/main/template_files/scripts/template.py) to serve as a starting point for your import scripts.
 
