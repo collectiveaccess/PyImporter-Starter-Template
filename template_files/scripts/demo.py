@@ -20,14 +20,9 @@ class Demo(BaseModel):
         self.type = "archeology"
         # if you only import one file per script, set self.file and self.file_path
         self.file = "demo.csv"
-        self.file_path = format_data_file_path(self.file)
 
     # perform some basic data checking
-    def validation(self):
-        # set dtype=str to prevent pandas from converting data types
-        df = pd.read_csv(self.file_path, dtype=str)
-        df = df.dropna(axis="index", how="all")
-
+    def validation(self, df, metadata):
         # check if ids are unique
         column = "Object ID"
         duplicate_values_for_column(df, column)
@@ -96,16 +91,15 @@ class Demo(BaseModel):
                 "idno_format": "column",
                 "table": self.table,
                 "type": self.type,
-                # set bundles to empty list if we want to create relationships
+                # set bundles to empty list if we want to create relationship_type
                 # or related fields, but not create main records
                 "bundles": [],
                 "relationships": [
                     {
-                        "target_table": "ca_objects",
-                        "target_column": "Related Objects",
-                        "relationship": "related",
-                        "idno_format": "column",
-                        # apply ca_transform to "target_column"
+                        "target": "ca_objects",
+                        "find_file_column": "Related Objects",
+                        "relationship_type": "related",
+                        # apply ca_transform to "find_file_column"
                         "ca_transform": [
                             {"action": "delimited_values", "separator": "; "}
                         ],
@@ -117,35 +111,24 @@ class Demo(BaseModel):
     def relationships(self):
         return [
             {
-                "target_table": "ca_entities",
+                "target": "ca_entities",
                 "target_type": "ind",
-                "target_column": "Collector",
-                "relationship": "collector",
-                "idno_format": "integer",
-                "not_found_action": {
+                "find_file_column": "Collector",
+                "relationship_type": "collector",
+                "ca_entity_parser": "parse_name_org_surname_comma",
+                "search_outcome": {
                     # create new record if no search result
-                    "action": "create_record",
+                    "action": "create_records",
+                    "idno_format": "integer",
                     "bundles": [
-                        {
-                            "preferred_labels": [
-                                {
-                                    "preferred_labels": "Collector",
-                                    "ca_transform": [
-                                        {
-                                            "action": "parse_name_org_surname_comma",
-                                        }
-                                    ],
-                                }
-                            ]
-                        }
+                        {"preferred_labels": "Collector"}
                     ],
                 },
             },
             {
-                "target_table": "ca_places",
-                "target_column": ["Continent", "Country"],
-                "relationship": "located",
-                "idno_format": "slug",
+                "target": "ca_places",
+                "find_file_column": ["Continent", "Country"],
+                "relationship_type": "located",
                 # do not include not_found_action, if you want the script to
                 # only log errors if no search result
             },
@@ -154,14 +137,14 @@ class Demo(BaseModel):
     def related_fields(self):
         return [
             {
-                "target_table": "ca_entities",
+                "target": "ca_entities",
                 "target_type": "ind",
-                "target_column": "Status By",
+                "find_file_column": "Status By",
                 "subject_field": "object_status_name",
-                "idno_format": "integer",
-                "not_found_action": {
+                "search_outcome": {
                     # set fields if no search result
-                    "action": "update_field",
+                    "action": "set_subject_fields",
+                    "idno_format": "integer",
                     "bundles": [{"txt_status_name": "Status By"}],
                 },
             },
@@ -172,11 +155,22 @@ if __name__ == "__main__":
     obj = Demo()
     fire.Fire(
         {
-            "validation": obj.validation,
-            "create_records": obj.create_records_from_metadata,
+            "validation": obj.validation_from_metadata,
             "preview_create": obj.preview_create_query_from_metadata,
-            "truncate_table": obj.truncate_table,
-            "delete_records": obj.delete_records,
+            "create_records": obj.create_records_from_metadata,
+            "preview_edit": obj.preview_edit_query_from_metadata,
+            "edit_records": obj.edit_records_from_metadata,
+            "preview_replace": obj.preview_replace_query_from_metadata,
+            "replace_records": obj.replace_records_from_metadata,
+            "preview_delete": obj.preview_delete_query_from_metadata,
+            "delete_records": obj.delete_records_from_metadata,
+            "preview_delete_by_identifier": obj.preview_delete_records_by_identifier,
+            "delete_records_by_identifier": obj.delete_records_by_identifier,
+            "preview_edit_relationships": obj.preview_edit_relationships_from_metadata,
+            "edit_relationships": obj.edit_relationships_from_metadata,
+            "preview_delete_relationships": obj.preview_delete_relationships_from_metadata,  # noqa: E501
             "delete_relationships": obj.delete_relationships_from_metadata,
+            "truncate_list": obj.truncate_list,
+            "truncate_table": obj.truncate_table,
         }
     )
