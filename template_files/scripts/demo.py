@@ -1,10 +1,8 @@
 import fire
-import pandas as pd
 
 import config  # noqa: F401
 from PyImporter import (
     BaseModel,
-    format_data_file_path,
     validate_dimension_column,
     add_dimension_unit_to_column,
     duplicate_values_for_column,
@@ -120,9 +118,7 @@ class Demo(BaseModel):
                     # create new record if no search result
                     "action": "create_records",
                     "idno_format": "integer",
-                    "bundles": [
-                        {"preferred_labels": "Collector"}
-                    ],
+                    "bundles": [{"preferred_labels": "Collector"}],
                 },
             },
             {
