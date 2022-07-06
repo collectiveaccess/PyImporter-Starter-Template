@@ -72,13 +72,10 @@ while not valid_directory:
     if input_path.strip() == "":
         continue
     elif project_path.exists():
-        print(f"'{input_path}' already exists. Do you want to replace it? [y/n]")
-        if input().lower() in ["y", "yes"]:
-            valid_directory = True
-            shutil.rmtree(project_path)
-            create_project(project_path)
+        print(f"'{project_path}' already exists.")
+        continue
     else:
         valid_directory = True
         create_project(project_path)
 
-print(f"Done setting up '{input_path}'.")
+print(f"Done setting up '{project_path}'.")
