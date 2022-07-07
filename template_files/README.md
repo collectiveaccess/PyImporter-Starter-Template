@@ -8,6 +8,7 @@ This project was creating using the [PyImporter Starter Template](https://github
 1. Install the required packages. You can use the virtual environment / package manager of your choice.
 
 ```bash
+cd importer_scripts
 pip install -r requirements.txt
 ```
 
@@ -17,9 +18,9 @@ We are using [python-dotenv](https://github.com/theskumar/python-dotenv) to hand
 
 Read [PyImporter environmental variables](https://github.com/collectiveaccess/PyImporter/wiki/Installing-PyImporter#pyimporter-environmental-variables) for more info the required envars.
 
-3. Read the [PyImporter docs](https://github.com/collectiveaccess/PyImporter/wiki) for  instructions on how to use PyImporter. Examine the demo import script ([./script/demo.py](https://github.com/collectiveaccess/PyImporter-Starter-Template/blob/main/template_files/scripts/demo.py)) and data ([./data/demo.csv](https://github.com/collectiveaccess/PyImporter-Starter-Template/blob/main/template_files/data/demo.csv)) to see an example of how to use PyImporter.
+3. Read the [PyImporter docs](https://github.com/collectiveaccess/PyImporter/wiki) for  instructions on how to use PyImporter. Examine the demo import script ([./importer_scripts/scripts/demo.py](https://github.com/collectiveaccess/PyImporter-Starter-Template/blob/main/template_files/scripts/demo.py)) and data ([./data/demo.csv](https://github.com/collectiveaccess/PyImporter-Starter-Template/blob/main/template_files/data/demo.csv)) to see an example of how to use PyImporter.
 
-4. Copy [./scripts/template.py](https://github.com/collectiveaccess/PyImporter-Starter-Template/blob/main/template_files/scripts/template.py) to serve as a starting point for your import scripts.
+4. Copy [./importer_scripts/scripts/template.py](https://github.com/collectiveaccess/PyImporter-Starter-Template/blob/main/template_files/scripts/template.py) to serve as a starting point for your import scripts.
 
 
 
@@ -28,12 +29,14 @@ Read [PyImporter environmental variables](https://github.com/collectiveaccess/Py
 Run tests. We are using [pytest](https://pytest.org) for testing.
 
 ```bash
+cd importer_scripts
 pytest
 ```
 
 Run linter (flake8) and code formatter (Black).
 
 ```bash
+cd importer_scripts
 python linter.py
 ```
 
