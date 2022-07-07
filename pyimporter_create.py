@@ -5,17 +5,18 @@ import shutil
 current_path = Path.cwd()
 template_files_path = current_path / "template_files"
 valid_directory = False
+valid_wikidata_input = False
 
 
 def create_project(project_path):
     choose_clone = False
-    # create project basic directories/files
+    # copy directories/files
     shutil.copytree(template_files_path, project_path)
 
     # create git repo
     subprocess.run(["git", "init"], cwd=project_path)
 
-    # add PyImporter submodules
+    # choose git clone method
     while not choose_clone:
         print("Enter git clone method to clone PyImporter: HTTPS or SSH", end=" ")
         clone_method = input()
@@ -32,6 +33,7 @@ def create_project(project_path):
                     "https://github.com/collectiveaccess/WikiData-Integration.git"
                 )
 
+    # add PyImporter submodule
     subprocess.run(["git", "submodule", "add", pyimporter_url], cwd=project_path)
     subprocess.run(
         [
@@ -44,18 +46,21 @@ def create_project(project_path):
         ],
         cwd=project_path,
     )
-    subprocess.run(["git", "submodule", "add", wikidata_url], cwd=project_path)
-    subprocess.run(
-        [
-            "git",
-            "config",
-            "-f",
-            ".gitmodules",
-            "submodule.WikiData-Integration.branch",
-            "main",
-        ],
-        cwd=project_path,
-    )
+
+    # add Wikidata submodule
+    if add_wikidata_submodule:
+        subprocess.run(["git", "submodule", "add", wikidata_url], cwd=project_path)
+        subprocess.run(
+            [
+                "git",
+                "config",
+                "-f",
+                ".gitmodules",
+                "submodule.WikiData-Integration.branch",
+                "main",
+            ],
+            cwd=project_path,
+        )
 
     # create first commit
     subprocess.run(["git", "add", "."], cwd=project_path)
@@ -74,8 +79,23 @@ while not valid_directory:
     elif project_path.exists():
         print(f"'{project_path}' already exists.")
         continue
-    else:
-        valid_directory = True
-        create_project(project_path)
 
-print(f"Done setting up '{project_path}'.")
+    valid_directory = True
+
+
+while not valid_wikidata_input:
+    print("Include Wikidata submodule [y/n]:", end=" ")
+    wiki_input = input().lower()
+
+    if wiki_input in ["y", "yes"]:
+        add_wikidata_submodule = True
+    elif wiki_input in ["n", "no"]:
+        add_wikidata_submodule = False
+    else:
+        continue
+
+    valid_wikidata_input = True
+
+create_project(project_path)
+
+print("\n", f"Done setting up '{project_path}'.")
