@@ -26,12 +26,12 @@ def create_project(project_path):
             if clone_method.lower() == "ssh":
                 pyimporter_url = "git@github.com:collectiveaccess/PyImporter.git"
                 wikidata_url = (
-                    "git@github.com:collectiveaccess/WikiData-Integration.git"
+                    "git@github.com:collectiveaccess/WikiDataIntegration.git"
                 )
             else:
                 pyimporter_url = "https://github.com/collectiveaccess/PyImporter.git"
                 wikidata_url = (
-                    "https://github.com/collectiveaccess/WikiData-Integration.git"
+                    "https://github.com/collectiveaccess/WikiDataIntegration.git"
                 )
 
     # add PyImporter submodule
@@ -57,7 +57,7 @@ def create_project(project_path):
                 "config",
                 "-f",
                 ".gitmodules",
-                "submodule.WikiData-Integration.branch",
+                "submodule.WikiDataIntegration.branch",
                 "main",
             ],
             cwd=scripts_path,
