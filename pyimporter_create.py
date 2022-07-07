@@ -66,7 +66,7 @@ def create_project(project_path):
     # create first commit
     subprocess.run(["git", "add", "."], cwd=project_path)
     subprocess.run(
-        ["git", "commit", '-m "Initialize PyImporter project."'], cwd=project_path
+        ["git", "commit", '-m Initialize PyImporter project.'], cwd=project_path
     )
 
 
