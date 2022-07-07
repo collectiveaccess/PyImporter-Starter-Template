@@ -9,6 +9,7 @@ valid_wikidata_input = False
 
 
 def create_project(project_path):
+    scripts_path = project_path / 'importer_scripts'
     choose_clone = False
     # copy directories/files
     shutil.copytree(template_files_path, project_path)
@@ -34,7 +35,7 @@ def create_project(project_path):
                 )
 
     # add PyImporter submodule
-    subprocess.run(["git", "submodule", "add", pyimporter_url], cwd=project_path)
+    subprocess.run(["git", "submodule", "add", pyimporter_url], cwd=scripts_path)
     subprocess.run(
         [
             "git",
@@ -44,12 +45,12 @@ def create_project(project_path):
             "submodule.PyImporter.branch",
             "main",
         ],
-        cwd=project_path,
+        cwd=scripts_path,
     )
 
     # add Wikidata submodule
     if add_wikidata_submodule:
-        subprocess.run(["git", "submodule", "add", wikidata_url], cwd=project_path)
+        subprocess.run(["git", "submodule", "add", wikidata_url], cwd=scripts_path)
         subprocess.run(
             [
                 "git",
@@ -59,7 +60,7 @@ def create_project(project_path):
                 "submodule.WikiData-Integration.branch",
                 "main",
             ],
-            cwd=project_path,
+            cwd=scripts_path,
         )
 
     # create first commit
